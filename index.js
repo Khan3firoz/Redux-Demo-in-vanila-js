@@ -2,6 +2,9 @@ const redux=require('redux')
 const createStore=redux.createStore
 const combineReducer=redux.combineReducers
 const bindActionCreators=redux.bindActionCreators
+const applyMiddleware=redux.applyMiddleware
+const reduxLogger=require('redux-logger')
+const logger=reduxLogger.createLogger()
 
 const CAKE_ORDERED = "CAKE_ORDERED"
 const CAKE_RESTOCKED = "CAKE_RESTOCKED"
@@ -85,13 +88,13 @@ const rootReducer=combineReducer({
 })
 
 // Create Store with createStore method
-const store=createStore(rootReducer)
+const store=createStore(rootReducer,applyMiddleware(logger))
 
 // combine all action with bundactionActionCreators method
 const action=bindActionCreators({cakeOrdered,cakeOrdered,iceCreameOrdered,iceCremeReStocked},store.dispatch)
 
 console.log("initialState",store.getState())
-store.subscribe(()=>console.log('updateSatte',store.getState()))
+// store.subscribe(()=>{})
 
 // store.dispatch(cakeOrdered())
 // store.dispatch(cakeOrdered())
